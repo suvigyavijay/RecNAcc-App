@@ -223,6 +223,14 @@
     });
   }
 
+  function updateDCDetails(uniqueCode) {
+    var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
+    active_DC.child('items/blanket').set($('#nBlanket').val());
+    active_DC.child('items/mattress').set($('#nMattress').val());
+    active_DC.child('items/pillow').set($('#nPillow').val());
+    active_DC.child('items/spike').set($('#nSpike').val());
+  }
+
 
   function handleLogin(e){
     if(e.keyCode === 13){
