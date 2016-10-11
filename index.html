@@ -16,10 +16,9 @@
     <ul id="slide-out" class="side-nav fixed primary-color">
       <li class="row constant">
         <br>
-        <div class="col s4 offset-s4">
+        <div class="col s6 offset-s3">
           <img src="img/logo_dvm.svg">
         </div>
-        <h5 class="center-align white-text col s12">DVM</h5>
       </li>
       <div class="row variable" id="navMenu">
         <li><a href="#" class="white-text"><i class="material-icons md-light white-text">vpn_key</i>Login</a></li>
@@ -27,9 +26,6 @@
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large primary-color"><i class="material-icons">menu</i></a>
   </sideNav>
-  <!-- <header>
-    <h1>Header</h1>
-  </header> -->
   <main>
     <div class="container">
       <div class="vertical-align center-align" id="loginForm">
@@ -37,63 +33,82 @@
 
         </div>
         <div class="row">
-          <div class="input-field col s6 offset-s3 left-align">
-            <input id="email" type="email" class="validate">
+          <div class="input-field col s12 m6 offset-m3 left-align">
+            <input id="email" type="email" class="validate" value="a@a.asd">
             <label for="email">Email</label>
           </div>
-          <div class="input-field col s6 offset-s3 left-align">
-            <input id="password" type="password" class="validate" onkeypress="handleLogin(event)">
+          <div class="input-field col s12 m6 offset-m3 left-align">
+            <input id="password" type="password" class="validate" value="qwerty" onkeypress="handleLogin(event)">
             <label for="password">Password</label>
           </div>
         </div>
         <div class="row">
-          <button class="btn waves-effect waves-light col s2 offset-s7" type="submit" name="action" id="loginButton" >Login
+          <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="loginButton" >Login
             <i class="material-icons right">send</i>
           </button>
         </div>
       </div>
-      <div id="loggedIn hide">
+      <div id="loggedIn hidden">
         <div id="plsSelect" class="vertical-align">
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s6 offset-s3" onclick=""><i class="material-icons left">domain</i>Department/Club</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcButton"><i class="material-icons left">domain</i>Department/Club</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s6 offset-s3"><i class="material-icons left">shopping_cart</i>Tender D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">shopping_cart</i>Tender D/C</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s6 offset-s3"><i class="material-icons left">local_hotel</i>Matress D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">local_hotel</i>Matress D/C</a>
           </div>
         </div>
-        <div id="deptClub" class="hide">
+        <div id="deptClub" class="hidden">
           <div id="dcS1">
             <div class="vertical-align">
-              <div class="input-field col s6">
-                <input id="uniqueCode" type="text" class="validate" onkeypress="handleUC(event)">
-                <label for="uniqueCode">Unique Code</label>
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="uniqueCode" type="text" class="validate" maxlength="6" onkeypress="handleUC(event)">
+                  <label for="uniqueCode">Unique Code</label>
+                </div>
               </div>
               <div class="row">
-              <button class="btn waves-effect waves-light col s2 offset-s7" type="submit" name="action" id="ucButton">Submit
+                <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="ucButton">Submit
                   <i class="material-icons right">send</i>
                 </button>
               </div>
             </div>
           </div>
-          <div id="dcS2" class="vertical-align hide">
-            <div class="row">
-              <a class="waves-effect waves-light btn-large col s6 offset-s3" onclick=""><i class="material-icons left">mode_edit</i>New Entry</a>
-            </div>
-            <div class="row">
-              <a class="waves-effect waves-light btn-large col s6 offset-s3"><i class="material-icons left">assignment_return</i>Return</a>
-            </div>
-            <div class="row">
-              <a class="waves-effect waves-light btn-large col s6 offset-s3"><i class="material-icons left">history</i>View History/Summary</a>
+          <div id="dcS2" class="hidden">
+            <div class="vertical-align">
+              <h3 class="dc-name center-align" id="dcName"></h3>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" onclick=""><i class="material-icons left">mode_edit</i>New Entry</a>
+              </div>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">assignment_return</i>Return</a>
+              </div>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">history</i>View History/Summary</a>
+              </div>
             </div>
           </div>
+          <div id="dc_entry" class="hidden">
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name">Last Name</label>
+              </div>
+            </div>
+          </div>
+          <div id="dc_return">
+
+          </div>
+          <div id="dc_summary">
+
+          </div>
         </div>
-        <div id="tenderDC" class="hide">
+        <div id="tenderDC" class="hidden">
 
         </div>
-        <div id="matressDC" class="hide">
+        <div id="matressDC" class="hidden">
 
         </div>
       </div>
@@ -152,26 +167,33 @@
     });
   }
 
-  function dcClick() {
-    $('#plsSelect').fadeOut();
-    $('#deptClub').fadeIn();
-
+  function accessDC(uniqueCode) {
+    firebase.database().ref('deptClub/'+uniqueCode).on('value',function(snapshot) {
+      console.log(snapshot.val().name);
+      $('header').show();
+      $('#dcName').html(snapshot.val().name);
+      $('#dcS2').show();
+    })
   }
 
+  $('#dcButton').click(function() {
+    $('#plsSelect').fadeOut();
+    $('#deptClub').fadeIn();
+  })
+
   function handleLogin(e){
-        if(e.keyCode === 13){
-            e.preventDefault(); // Ensure it is only this code that rusn
-            $('#loginButton').click();
-        }
-    }
+    if(e.keyCode === 13){
+       e.preventDefault(); // Ensure it is only this code that rusn
+       $('#loginButton').click();
+     }
+   }
 
-  function handleUC(e){
-        if(e.keyCode === 13){
-            e.preventDefault(); // Ensure it is only this code that rusn
-            $('#ucButton').click();
-        }
+   function handleUC(e){
+    if(e.keyCode === 13){
+      e.preventDefault(); // Ensure it is only this code that rusn
+      $('#ucButton').click();
     }
-
+  }
 
   $('#loginButton').click(function(e) {
     var email = $('#email').val();
@@ -180,7 +202,9 @@
   });
 
   $('#ucButton').click(function () {
-    
+    var uniqueCode = $('#uniqueCode').val();
+    accessDC(uniqueCode);
+    $('#dcS1').fadeOut();
   })
 </script>
 
