@@ -177,6 +177,12 @@
         <div id="matressDC" class="hidden">
 
         </div>
+        <div id="revision" class="hidden">
+          <h3>Revision History</h3>
+          <ul class="collapsible" data-collapsible="expandable" id="revisionData">
+
+          </ul>
+        </div>
       </div>
     </div>
   </main>
@@ -214,6 +220,9 @@
         $('#loginForm').fadeOut();
         console.log('Login Successful!');
         var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+        if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" id="revisionButton"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+        }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
         $('#dcNavButton').click(function() {
@@ -264,16 +273,16 @@
 
   function retrieveDCDetails(uniqueCode) {
     var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
-    active_DC.child('items').once('value',function(snapshot) {
+    active_DC.child('data').once('value',function(snapshot) {
       $('.nBlanket').val(snapshot.val().blanket);
     });
-    active_DC.child('items').once('value',function(snapshot) {
+    active_DC.child('data').once('value',function(snapshot) {
       $('.nMattress').val(snapshot.val().mattress);
     });
-    active_DC.child('items').once('value',function(snapshot) {
+    active_DC.child('data').once('value',function(snapshot) {
       $('.nPillow').val(snapshot.val().pillow);
     });
-    active_DC.child('items').once('value',function(snapshot) {
+    active_DC.child('data').once('value',function(snapshot) {
       $('.nSpike').val(snapshot.val().spike);
       readyReturn = true;
     });
@@ -283,10 +292,10 @@
     if (readyReturn===true) {
       console.log(readyReturn);
       var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
-      active_DC.child('items/blanket').set($('#nBlanket').val()-$('#rBlanket').val());
-      active_DC.child('items/mattress').set($('#nMattress').val()-$('#rMattress').val());
-      active_DC.child('items/pillow').set($('#nPillow').val()-$('#rPillow').val());
-      active_DC.child('items/spike').set($('#nSpike').val()-$('#rSpike').val());
+      active_DC.child('data/blanket').set($('#nBlanket').val()-$('#rBlanket').val());
+      active_DC.child('data/mattress').set($('#nMattress').val()-$('#rMattress').val());
+      active_DC.child('data/pillow').set($('#nPillow').val()-$('#rPillow').val());
+      active_DC.child('data/spike').set($('#nSpike').val()-$('#rSpike').val());
     }
     else{
       console.log(readyReturn);
@@ -298,13 +307,50 @@
 
   function updateDCDetails(uniqueCode) {
     var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
-    active_DC.child('items/blanket').set($('#nBlanket').val());
-    active_DC.child('items/mattress').set($('#nMattress').val());
-    active_DC.child('items/pillow').set($('#nPillow').val());
-    active_DC.child('items/spike').set($('#nSpike').val());
+    active_DC.child('data/blanket').set($('#nBlanket').val());
+    active_DC.child('data/mattress').set($('#nMattress').val());
+    active_DC.child('data/pillow').set($('#nPillow').val());
+    active_DC.child('data/spike').set($('#nSpike').val());
     readyReturn = false;
   }
 
+  function updateRevisionHistory(areaName, uniqueCode) {
+    var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
+    var rev_history = firebase.database().ref('rev_history');
+    var count = undefined;
+    var name, data;
+    var timestamp = new Date().toLocaleString();
+    var currentUser = firebase.auth().currentUser.email;
+    active_DC.child('name').once('value', function(snapshot) {
+      name = snapshot.val();
+    })
+    active_DC.child('data').once('value', function(snapshot) {
+      data = snapshot.val();
+    })
+    rev_history.child('count').once('value', function(snapshot) {
+      count = snapshot.val();
+      console.log(count);
+      // count = parseInt(count)+1;
+      // console.log(count);
+      var jsonData = {
+        'count': count+1
+      };
+      jsonData[count+1] = {
+        'timestamp': timestamp,
+        'user': currentUser,
+        'changelog': {
+          'changes': areaName,
+          'name': name,
+          'data': data,
+        }
+      };
+      rev_history.update(jsonData);
+    });
+  }
+
+  function viewRevision() {
+    var htmlstring = '<li><div class="collapsible-header">'+iter+'</div><div class="collapsible-body"></div></li>'
+  }
 
   function handleLogin(e){
     if(e.keyCode === 13){
@@ -349,6 +395,7 @@
     $('#dcS3').fadeOut();
     $('#dc_entry').fadeOut();
     updateDCDetails(uniqueCode);
+    updateRevisionHistory('deptClub', uniqueCode);
     $('#dcS2').show();
   })
 
@@ -364,6 +411,7 @@
     $('#dc_return').fadeOut();
     retrieveDCDetails(uniqueCode);
     returnDC(uniqueCode);
+    updateRevisionHistory('deptClub', uniqueCode);
     $('#dcS2').show();
   })
 
