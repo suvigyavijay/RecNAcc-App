@@ -24,7 +24,7 @@
         <li><a href="#" class="white-text"><i class="material-icons md-light white-text">vpn_key</i>Login</a></li>
       </div>
     </ul>
-    <a id="hamButton" href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large primary-color"><i class="material-icons">menu</i></a>
+    <a id="hamButton" href="#" data-activates="slide-out" class="button-collapse btn-floating btn-large primary-color hidden"><i class="material-icons">menu</i></a>
   </sideNav>
   <main>
     <div class="container">
@@ -34,11 +34,11 @@
         </div>
         <div class="row">
           <div class="input-field col s12 m6 offset-m3 left-align">
-            <input id="email" type="email" class="validate" value="a@a.asd">
+            <input id="email" type="email" class="validate" value="superuser@bits-oasis.org">
             <label for="email">Email</label>
           </div>
           <div class="input-field col s12 m6 offset-m3 left-align">
-            <input id="password" type="password" class="validate" value="qwerty" onkeypress="handleLogin(event)">
+            <input id="password" type="password" class="validate" value="superuser" onkeypress="handleLogin(event)">
             <label for="password">Password</label>
           </div>
         </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div id="loggedIn hidden">
-        <div id="plsSelect" class="vertical-align">
+        <div id="plsSelect" class="vertical-align hidden">
           <div class="row">
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcButton"><i class="material-icons left">domain</i>Department/Club</a>
           </div>
@@ -179,7 +179,10 @@
         </div>
         <div id="revision" class="hidden">
           <h3>Revision History</h3>
-          <ul class="collapsible" data-collapsible="expandable" id="revisionData">
+          <div class="row">
+            <a class="waves-effect waves-light btn-large col s5 offset-s6 m4 offset-m8" id="downloadRev" onclick="downloadRevision()" href="#"><i class="material-icons left">file_download</i>Download JSON</a>
+          </div>
+          <ul class="collapsible primary-color" style="border: 0" data-collapsible="accordion" id="revisionData">
 
           </ul>
         </div>
@@ -221,10 +224,11 @@
         console.log('Login Successful!');
         var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
-          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" id="revisionButton"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
+        $('#plsSelect').css('display', 'inline-flex');;
         $('#dcNavButton').click(function() {
           $('#plsSelect').hide();
           $('#dcS1').fadeIn();
@@ -349,7 +353,59 @@
   }
 
   function viewRevision() {
-    var htmlstring = '<li><div class="collapsible-header">'+iter+'</div><div class="collapsible-body"></div></li>'
+    $('#plsSelect').hide();
+    $('#deptClub').hide();
+    $('#revision').fadeIn();
+    $('#revisionData').html('');
+    var rev_history = firebase.database().ref().child('rev_history');
+    var count;
+    rev_history.child('count').once('value', function (snapshot) {
+      count = snapshot.val();
+      console.log(count);
+      function printRev(iter) {
+        console.log(iter);
+        var blanket, mattress, pillow, spike, user, timestamp, areaName, name;
+        rev_history.child(iter).child('changelog/data').child('blanket').once('value', function (snapshot) {blanket = snapshot.val() });
+        rev_history.child(iter).child('changelog/data').child('mattress').once('value', function (snapshot) {mattress = snapshot.val() });
+        rev_history.child(iter).child('changelog/data').child('pillow').once('value', function (snapshot) {pillow = snapshot.val() });
+        rev_history.child(iter).child('changelog/data').child('spike').once('value', function (snapshot) {spike = snapshot.val() });
+        rev_history.child(iter).child('user').once('value', function (snapshot) {user = snapshot.val() });
+        rev_history.child(iter).child('timestamp').once('value', function (snapshot) {timestamp = snapshot.val() });
+        rev_history.child(iter).child('changelog').child('changes').once('value', function (snapshot) {areaName = snapshot.val() });
+        rev_history.child(iter).child('changelog').child('name').once('value', function (snapshot) {
+          name = snapshot.val();
+          var htmlstring;
+          htmlstring = '<li><div class="collapsible-header quinary-color">'+iter+'</div><div class="collapsible-body container"> <div class="row"> <div class="col s5">User</div> <div class="col s1">:</div> <div class="col s6">'+user+'</div> </div> <div class="row"> <div class="col s5">Date/Time</div> <div class="col s1">:</div> <div class="col s6">'+timestamp+'</div> </div> <div class="row"> <div class="col s5">Changes made in</div> <div class="col s1">:</div> <div class="col s6">'+areaName+'</div> </div> <div class="row"> <div class="col s5">Name</div> <div class="col s1">:</div> <div class="col s6">'+name+'</div> </div> <div class="row"><div class="input-field col s12 m6 offset-m3"> <input class="" id="revBlanket" placeholder="" value="'+blanket+'" type="text" class="validate" disabled> <label for="revBlanket">No of Blankets</label> </div> <div class="input-field col s12 m6 offset-m3"> <input class="" id="revMattress" placeholder="" value="'+mattress+'" type="text" class="validate" disabled> <label for="revMattress">No of Mattresses</label> </div> <div class="input-field col s12 m6 offset-m3"> <input class="" id="revPillow" placeholder="" value="'+pillow+'" type="text" class="validate" disabled> <label for="revPillow">No of Pillows</label> </div> <div class="input-field col s12 m6 offset-m3"> <input class="" id="revSpike" placeholder="" value="'+spike+'" type="text" class="validate" disabled> <label for="revSpike">No of Spike Guards</label> </div></div></div></li>';
+          console.log(htmlstring);
+          $('#revisionData').append(htmlstring);
+          Materialize.updateTextFields();
+          $('.collapsible').collapsible({
+            accordion : true 
+          });
+          if (iter>count-4) requestAnimationFrame(printRev(iter-1))
+        });
+      }
+      printRev(count);
+    });
+  }
+
+  function downloadRevision() {
+    if ($('#downloadRev').attr('href')=='#'){
+      var rev_history = firebase.database().ref().child('rev_history');
+      rev_history.once('value', function(snapshot) {
+        var file = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(snapshot.val()));
+      // window.open(file, '_blank');
+      $('#downloadRev').attr('href', file);
+      $('#downloadRev').attr('download', 'data.json');
+      // $('#downloadRev').attr('onclick', '');
+      console.log(file);
+      setTimeout(function () {
+        $('#downloadRev')[0].click();
+        $('#downloadRev').attr('href', '#');
+        $('#downloadRev').removeAttr('download');
+      }, 1000)
+    })
+    }
   }
 
   function handleLogin(e){
