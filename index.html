@@ -51,10 +51,10 @@
       <div id="loggedIn hidden">
         <div id="plsSelect" class="vertical-align hidden">
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcButton"><i class="material-icons left">domain</i>Department/Club</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcButton"><i class="material-icons left">shopping_cart</i>Department/Club</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">shopping_cart</i>Tender D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">directions_bus</i>Tender D/C</a>
           </div>
           <div class="row">
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">local_hotel</i>Matress D/C</a>
@@ -172,33 +172,70 @@
           </div>
         </div>
         <div id="tenderDC" class="hidden">
-
-        </div>
-        <div id="matressDC" class="hidden">
-
-        </div>
-        <div id="revision" class="hidden">
-          <h3>Revision History</h3>
-          <div class="row">
-            <a class="waves-effect waves-light btn-large col s5 offset-s6 m4 offset-m8" id="downloadRev" onclick="downloadRevision()" href="#"><i class="material-icons left">file_download</i>Download JSON</a>
+          <div id="tenderS1" class="hidden">
+            <div class="vertical-align">
+              <h3 class="dc-name center-align" id="dcName"></h3>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tnewEntryButton"><i class="material-icons left">mode_edit</i>New Entry</a>
+              </div>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="treturnButton"><i class="material-icons left">assignment_return</i>Return</a>
+              </div>
+              <div class="row">
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tviewButton"><i class="material-icons left">history</i>View Status</a>
+              </div>
+            </div>
           </div>
-          <ul class="collapsible primary-color" style="border: 0" data-collapsible="accordion" id="revisionData">
-
-          </ul>
+          <div id="tenderS2" class="hidden">
+            <div class="vertical-align">
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <select>
+                    <option value="" disabled selected>Choose a location</option>
+                    <option value="SAC">SAC</option>
+                    <option value="RAM Common Room">RAM Common Room</option>
+                    <option value="BUDH Common Room">BUDH Common Room</option>
+                    <option value="GANDHI Common Room">GANDHI Common Room</option>
+                  </select>
+                  <label>Location</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <textarea id="tremarks" class="materialize-textarea"></textarea>
+                  <label for="tremarks">Comments/Remarks</label>
+                </div>
+              </div>
+              
+            </div>
+          </div>
         </div>
       </div>
+      <div id="matressDC" class="hidden">
+
+      </div>
+      <div id="revision" class="hidden">
+        <h3>Revision History</h3>
+        <div class="row">
+          <a class="waves-effect waves-light btn-large col s5 offset-s6 m4 offset-m8" id="downloadRev" onclick="downloadRevision()" href="#"><i class="material-icons left">file_download</i>Download JSON</a>
+        </div>
+        <ul class="collapsible primary-color" style="border: 0" data-collapsible="accordion" id="revisionData">
+
+        </ul>
+      </div>
     </div>
-  </main>
-  <footer>
+  </div>
+</main>
+<footer>
 
-  </footer>
+</footer>
 
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
-  <script>
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+<script>
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyBxzLUFVpUeT3mejr3k35D39vtsicJVYvw",
@@ -222,9 +259,9 @@
         $('#loginError').html('');
         $('#loginForm').fadeOut();
         console.log('Login Successful!');
-        var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+        var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
-          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">domain</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">shopping_cart</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
