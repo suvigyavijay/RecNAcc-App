@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="icon" href="img/favicon.png" type="image/png">
 </head>
 <body>
   <sideNav>
@@ -57,7 +58,7 @@
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tenderButton"><i class="material-icons left">directions_bus</i>Tender D/C</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="MattressButton"><i class="material-icons left">local_hotel</i>Mattress D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="mattressButton"><i class="material-icons left">local_hotel</i>Mattress D/C</a>
           </div>
         </div>
         <div id="deptClub" class="hidden">
@@ -427,7 +428,7 @@
         console.log('Login Successful!');
         var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Mattress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
-          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text" id="tenderNavButton"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Mattress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text" id="tenderNavButton"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text" id="mattressNavButton"><i class="material-icons md-light white-text">local_hotel</i>Mattress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
@@ -439,10 +440,12 @@
           $('#dcS3').hide();
           $('#deptClub').show();
           $('#tenderDC').hide();
+          $('#mattressDC').hide();
         });
         $('#tenderNavButton').click(function() {
           $('#plsSelect').hide();
           $('#deptClub').hide();
+          $('#mattressDC').hide();
           $('#tenderDC').show();
           $('#tenderS1').fadeIn();
           $('#tenderS2').hide();
@@ -451,6 +454,7 @@
         $('#mattressNavButton').click(function() {
           $('#plsSelect').hide();
           $('#deptClub').hide();
+          $('#tenderDC').hide();
           $('#mattressDC').show();
           $('#mattressS1').fadeIn();
           $('#mattressS2').hide();
@@ -591,7 +595,7 @@
     $('#plsSelect').hide();
     $('#deptClub').hide();
     $('#tenderDC').hide();
-    $('#mattress').hide();
+    $('#mattressDC').hide();
     $('#revision').fadeIn();
     $('#revisionData').html('');
     var rev_history = firebase.database().ref().child('rev_history');
@@ -960,7 +964,7 @@
     retrieveMattressDetails(mlocation);
   })
 
-  $('#menderSubmit').click(function () {
+  $('#mattressSubmit').click(function () {
     if (actionType=="mattress_entry") {
       enterMattress(mlocation);
     }
@@ -968,7 +972,7 @@
       returnMattress(mlocation);
     }
     updateRevisionHistory('mattress',mlocation);
-    $('#menderS2').hide();
+    $('#mattressS2').hide();
     $('#mlocation').prop('selectedIndex',0);
     $('select').material_select();
     $('#mremarks').val('');
@@ -981,11 +985,11 @@
     $('#mvPillow').val(0);
     $('#mvMattress').val(0);
     $('#mvSpike').val(0);
-    $('#menderS1').fadeIn();
+    $('#mattressS1').fadeIn();
   })
 
   $('#mviewButton').click(function () {
-    $('#menderS1').hide();
+    $('#mattressS1').hide();
     $('#mstatus').show();
   })
 
@@ -1003,7 +1007,7 @@
     $('#mvPillow').val(0);
     $('#mvMattress').val(0);
     $('#mvSpike').val(0);
-    $('#menderS1').show();
+    $('#mattressS1').show();
   })
 
 </script>
