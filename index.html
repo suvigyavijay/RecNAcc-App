@@ -57,7 +57,7 @@
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tenderButton"><i class="material-icons left">directions_bus</i>Tender D/C</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">local_hotel</i>Matress D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="MattressButton"><i class="material-icons left">local_hotel</i>Mattress D/C</a>
           </div>
         </div>
         <div id="deptClub" class="hidden">
@@ -276,8 +276,109 @@
           </div>
         </div>
       </div>
-      <div id="matressDC" class="hidden">
-
+      <div id="mattressDC" class="hidden">
+      <div id="mattressS1" class="hidden">
+          <div class="vertical-align">
+            <h3 class="dc-name center-align" id="dcName"></h3>
+            <div class="row">
+              <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="mentryButton"><i class="material-icons left">mode_edit</i>Mattresses Distribution</a>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="mreturnButton"><i class="material-icons left">assignment_return</i>Mattresses Collection</a>
+            </div>
+            <div class="row">
+              <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="mviewButton"><i class="material-icons left">history</i>View Status</a>
+            </div>
+          </div>
+        </div>
+        <div id="mattressS2" class="hidden">
+          <div class="vertical-align">
+            <br>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <select id="mlocation">
+                  <option value="" disabled selected>Choose a location</option>
+                  <option value="SAC">SAC</option>
+                  <option value="RAM Common Room">RAM Common Room</option>
+                  <option value="BUDH Common Room">BUDH Common Room</option>
+                  <option value="GANDHI Common Room">GANDHI Common Room</option>
+                </select>
+                <label>Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <textarea id="mremarks" class="materialize-textarea" placeholder=""></textarea>
+                <label for="mremarks">Comments/Remarks</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mBlanket" value="0" type="text" class="validate">
+                <label for="mBlanket">No of Blankets</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mMattress" value="0" type="text" class="validate">
+                <label for="mMattress">No of Mattresses</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mPillow" value="0" type="text" class="validate">
+                <label for="mPillow">No of Pillows</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mSpike" value="0" type="text" class="validate">
+                <label for="mSpike">No of Spike Guards</label>
+              </div>
+              <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="mattressSubmit">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="mstatus" class="hidden">
+          <div class="vertical-align">
+            <br>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <select id="mvlocation">
+                  <option value="" disabled selected>Choose a location</option>
+                  <option value="SAC">SAC</option>
+                  <option value="RAM Common Room">RAM Common Room</option>
+                  <option value="BUDH Common Room">BUDH Common Room</option>
+                  <option value="GANDHI Common Room">GANDHI Common Room</option>
+                </select>
+                <label>Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <textarea id="mvremarks" class="materialize-textarea" placeholder="" disabled=""></textarea>
+                <label for="mvremarks">Comments/Remarks</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mvBlanket" placeholder="" type="text" class="validate" disabled>
+                <label for="mvBlanket">No of Blankets</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mvMattress" placeholder="" type="text" class="validate" disabled>
+                <label for="mvMattress">No of Mattresses</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mvPillow" placeholder="" type="text" class="validate" disabled>
+                <label for="mvPillow">No of Pillows</label>
+              </div>
+              <div class="input-field col s12 m6 offset-m3">
+                <input id="mvSpike" placeholder="" type="text" class="validate" disabled>
+                <label for="mvSpike">No of Spike Guards</label>
+              </div>
+              <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="mvBack">Back
+                <i class="material-icons right">backspace</i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="revision" class="hidden">
         <h3>Revision History</h3>
@@ -324,9 +425,9 @@
         $('#loginError').html('');
         $('#loginForm').fadeOut();
         console.log('Login Successful!');
-        var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+        var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Mattress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
-          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text" id="tenderNavButton"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text" id="tenderNavButton"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Mattress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
@@ -346,6 +447,14 @@
           $('#tenderS1').fadeIn();
           $('#tenderS2').hide();
           $('#tstatus').hide();
+        });
+        $('#mattressNavButton').click(function() {
+          $('#plsSelect').hide();
+          $('#deptClub').hide();
+          $('#mattressDC').show();
+          $('#mattressS1').fadeIn();
+          $('#mattressS2').hide();
+          $('#mstatus').hide();
         });
       },
       function(error) {
@@ -595,6 +704,65 @@
     }
   }
 
+  function retrieveMattressDetails(location) {
+    var active_DC = firebase.database().ref('mattress/'+location);
+    active_DC.child('remarks').once('value',function(snapshot) {
+      $('#mremarks').val(snapshot.val());
+      $('#mvremarks').val(snapshot.val());
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#mvBlanket').val(snapshot.val().blanket);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#mvMattress').val(snapshot.val().mattress);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#mvPillow').val(snapshot.val().pillow);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#mvSpike').val(snapshot.val().spike);
+      readyReturn = true;
+    });
+  }
+
+  function enterMattress(mlocation) { 
+    if (readyReturn===true) {
+      console.log(readyReturn);
+      var active_DC = firebase.database().ref('mattress/'+mlocation);
+      active_DC.child('remarks').set($('#mremarks').val());
+      active_DC.child('data/blanket').set(parseInt($('#mvBlanket').val())+parseInt($('#mBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#mvMattress').val())+parseInt($('#mMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#mvPillow').val())+parseInt($('#mPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#mvSpike').val())+parseInt($('#mSpike').val()));
+      readyReturn = false;
+    }
+    else{
+      console.log(readyReturn);
+      setTimeout(function () {
+        requestAnimationFrame(enterMattress(mlocation));
+      },500)
+    }
+  }
+
+  function returnMattress(mlocation) { 
+    if (readyReturn===true) {
+      console.log(readyReturn);
+      var active_DC = firebase.database().ref('mattress/'+mlocation);
+      active_DC.child('remarks').set($('#mremarks').val());
+      active_DC.child('data/blanket').set(parseInt($('#mvBlanket').val())-parseInt($('#mBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#mvMattress').val())-parseInt($('#mMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#mvPillow').val())-parseInt($('#mPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#mvSpike').val())-parseInt($('#mSpike').val()));
+      readyReturn = false;
+    }
+    else{
+      console.log(readyReturn);
+      setTimeout(function () {
+        requestAnimationFrame(returnMattress(mlocation));
+      },500)
+    }
+  }
+
   function handleLogin(e){
     if(e.keyCode === 13){
        e.preventDefault(); // Ensure it is only this code that rusn
@@ -760,6 +928,82 @@
     $('#tvMattress').val(0);
     $('#tvSpike').val(0);
     $('#tenderS1').show();
+  })
+
+  $('#mattressButton').click(function () {
+    $('#plsSelect').hide();
+    $('#mattressDC').show();
+    $('#mattressS1').fadeIn();
+  })
+
+  $('#mentryButton').click(function () {
+    $('#mattressS1').hide();
+    $('#mattressS2').show();
+    actionType = "mattress_entry";
+  })
+
+  $('#mreturnButton').click(function () {
+    $('#mattressS1').hide();
+    $('#mattressS2').show();
+    actionType = "mattress_return";
+  })
+
+  var mlocation = "location";
+
+  $('#mlocation').change(function () {
+    mlocation = $('#mlocation option:selected').text();
+    retrieveMattressDetails(mlocation);
+  })
+
+  $('#mvlocation').change(function () {
+    mlocation = $('#mvlocation option:selected').text();
+    retrieveMattressDetails(mlocation);
+  })
+
+  $('#menderSubmit').click(function () {
+    if (actionType=="mattress_entry") {
+      enterMattress(mlocation);
+    }
+    else if (actionType=="mattress_return") {
+      returnMattress(mlocation);
+    }
+    updateRevisionHistory('mattress',mlocation);
+    $('#menderS2').hide();
+    $('#mlocation').prop('selectedIndex',0);
+    $('select').material_select();
+    $('#mremarks').val('');
+    $('#mvremarks').val('');
+    $('#mBlanket').val(0);
+    $('#mPillow').val(0);
+    $('#mMattress').val(0);
+    $('#mSpike').val(0);
+    $('#mvBlanket').val(0);
+    $('#mvPillow').val(0);
+    $('#mvMattress').val(0);
+    $('#mvSpike').val(0);
+    $('#menderS1').fadeIn();
+  })
+
+  $('#mviewButton').click(function () {
+    $('#menderS1').hide();
+    $('#mstatus').show();
+  })
+
+  $('#mvBack').click(function () {
+    $('#mstatus').hide();
+    $('#mvlocation').prop('selectedIndex',0);
+    $('select').material_select();
+    $('#mremarks').val('');
+    $('#mvremarks').val('');
+    $('#mBlanket').val(0);
+    $('#mPillow').val(0);
+    $('#mMattress').val(0);
+    $('#mSpike').val(0);
+    $('#mvBlanket').val(0);
+    $('#mvPillow').val(0);
+    $('#mvMattress').val(0);
+    $('#mvSpike').val(0);
+    $('#menderS1').show();
   })
 
 </script>
