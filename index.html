@@ -203,7 +203,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s12 m6 offset-m3">
-                  <textarea id="tremarks" class="materialize-textarea"></textarea>
+                  <textarea id="tremarks" class="materialize-textarea" placeholder=""></textarea>
                   <label for="tremarks">Comments/Remarks</label>
                 </div>
               </div>
@@ -232,9 +232,10 @@
           </div>
           <div id="tstatus" class="hidden">
             <div class="vertical-align">
+              <br>
               <div class="row">
                 <div class="input-field col s12 m6 offset-m3">
-                  <select>
+                  <select id="tvlocation">
                     <option value="" disabled selected>Choose a location</option>
                     <option value="SAC">SAC</option>
                     <option value="RAM Common Room">RAM Common Room</option>
@@ -246,7 +247,7 @@
               </div>
               <div class="row">
                 <div class="input-field col s12 m6 offset-m3">
-                  <textarea id="tvremarks" class="materialize-textarea" disabled=""></textarea>
+                  <textarea id="tvremarks" class="materialize-textarea" placeholder="" disabled=""></textarea>
                   <label for="tvremarks">Comments/Remarks</label>
                 </div>
               </div>
@@ -325,18 +326,27 @@
         console.log('Login Successful!');
         var navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li><li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         if (firebase.auth().currentUser.email=='superuser@bits-oasis.org') {
-          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
+          navlist = '<li><a href="#" class="white-text" id="dcNavButton"><i class="material-icons md-light white-text">shopping_cart</i>Department/Club</a></li><li><a href="#" class="white-text" id="tenderNavButton"><i class="material-icons md-light white-text">directions_bus</i>Tender D/C</a></li><li><a href="#" class="white-text"><i class="material-icons md-light white-text">local_hotel</i>Matress D/C</a></li>'+'<li><a href="#" class="white-text" onclick="viewRevision()"><i class="material-icons md-light white-text">watch_later</i>View Revision History</a></li>'+'<li><a href="#" class="white-text" onclick="logout()"><i class="material-icons md-light white-text">vpn_key</i>Logout</a></li>';
         }
         $('#navMenu').html(navlist);
         $('#loggedIn').fadeIn();
-        $('#plsSelect').css('display', 'inline-flex');;
+        $('#plsSelect').css('display', 'inline-flex');
         $('#dcNavButton').click(function() {
           $('#plsSelect').hide();
           $('#dcS1').fadeIn();
           $('#dcS2').hide();
           $('#dcS3').hide();
           $('#deptClub').show();
-        })
+          $('#tenderDC').hide();
+        });
+        $('#tenderNavButton').click(function() {
+          $('#plsSelect').hide();
+          $('#deptClub').hide();
+          $('#tenderDC').show();
+          $('#tenderS1').fadeIn();
+          $('#tenderS2').hide();
+          $('#tstatus').hide();
+        });
       },
       function(error) {
       // Handle Errors here.
@@ -429,16 +439,21 @@
     }
   }
 
-  function updateRevisionHistory(areaName, uniqueCode) {
-    var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
+  function updateRevisionHistory(areaName, param) {
+    var active_DC = firebase.database().ref(areaName+'/'+param);
     var rev_history = firebase.database().ref('rev_history');
     var count = undefined;
     var name, data;
     var timestamp = new Date().toLocaleString();
     var currentUser = firebase.auth().currentUser.email;
-    active_DC.child('name').once('value', function(snapshot) {
-      name = snapshot.val();
-    })
+    if (areaName=="deptClub") {
+      active_DC.child('name').once('value', function(snapshot) {
+        name = snapshot.val();
+      })
+    }
+    else {
+      name = param;
+    }
     active_DC.child('data').once('value', function(snapshot) {
       data = snapshot.val();
     })
@@ -466,6 +481,8 @@
   function viewRevision() {
     $('#plsSelect').hide();
     $('#deptClub').hide();
+    $('#tenderDC').hide();
+    $('#mattress').hide();
     $('#revision').fadeIn();
     $('#revisionData').html('');
     var rev_history = firebase.database().ref().child('rev_history');
@@ -522,6 +539,7 @@
   function retrieveTenderDetails(location) {
     var active_DC = firebase.database().ref('tender/'+location);
     active_DC.child('remarks').once('value',function(snapshot) {
+      $('#tremarks').val(snapshot.val());
       $('#tvremarks').val(snapshot.val());
     });
     active_DC.child('data').once('value',function(snapshot) {
@@ -631,6 +649,10 @@
       returnDC(uniqueCode);
       updateRevisionHistory('deptClub', uniqueCode);
     }
+    $('#dcBlanket').val(0);
+    $('#dcPillow').val(0);
+    $('#dcMattress').val(0);
+    $('#dcSpike').val(0);
     $('#dcS2').show();
   })
 
@@ -689,6 +711,11 @@
     retrieveTenderDetails(tlocation);
   })
 
+  $('#tvlocation').change(function () {
+    tlocation = $('#tvlocation option:selected').text();
+    retrieveTenderDetails(tlocation);
+  })
+
   $('#tenderSubmit').click(function () {
     if (actionType=="tender_entry") {
       enterTender(tlocation);
@@ -696,20 +723,43 @@
     else if (actionType=="tender_return") {
       returnTender(tlocation);
     }
+    updateRevisionHistory('tender',tlocation);
     $('#tenderS2').hide();
     $('#tlocation').prop('selectedIndex',0);
-    $('#tlocation').val('')
+    $('select').material_select();
     $('#tremarks').val('');
+    $('#tvremarks').val('');
     $('#tBlanket').val(0);
     $('#tPillow').val(0);
     $('#tMattress').val(0);
     $('#tSpike').val(0);
+    $('#tvBlanket').val(0);
+    $('#tvPillow').val(0);
+    $('#tvMattress').val(0);
+    $('#tvSpike').val(0);
     $('#tenderS1').fadeIn();
   })
 
   $('#tviewButton').click(function () {
     $('#tenderS1').hide();
     $('#tstatus').show();
+  })
+
+  $('#tvBack').click(function () {
+    $('#tstatus').hide();
+    $('#tvlocation').prop('selectedIndex',0);
+    $('select').material_select();
+    $('#tremarks').val('');
+    $('#tvremarks').val('');
+    $('#tBlanket').val(0);
+    $('#tPillow').val(0);
+    $('#tMattress').val(0);
+    $('#tSpike').val(0);
+    $('#tvBlanket').val(0);
+    $('#tvPillow').val(0);
+    $('#tvMattress').val(0);
+    $('#tvSpike').val(0);
+    $('#tenderS1').show();
   })
 
 </script>
