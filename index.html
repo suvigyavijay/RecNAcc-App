@@ -54,7 +54,7 @@
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcButton"><i class="material-icons left">shopping_cart</i>Department/Club</a>
           </div>
           <div class="row">
-            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">directions_bus</i>Tender D/C</a>
+            <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tenderButton"><i class="material-icons left">directions_bus</i>Tender D/C</a>
           </div>
           <div class="row">
             <a class="waves-effect waves-light btn-large col s12 m6 offset-m3"><i class="material-icons left">local_hotel</i>Matress D/C</a>
@@ -83,10 +83,10 @@
             <div class="vertical-align">
               <h3 class="dc-name center-align" id="dcName"></h3>
               <div class="row">
-                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="newEntryButton"><i class="material-icons left">mode_edit</i>New Entry</a>
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcEntryButton"><i class="material-icons left">mode_edit</i>New Entry</a>
               </div>
               <div class="row">
-                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="returnButton"><i class="material-icons left">assignment_return</i>Return</a>
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="dcreturnButton"><i class="material-icons left">assignment_return</i>Return</a>
               </div>
               <div class="row">
                 <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="viewButton"><i class="material-icons left">history</i>View Status</a>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div id="dcS3">
-            <div id="dc_entry" class="hidden">
+            <!-- <div id="dc_entry" class="hidden">
               <div class="vertical-align">
                 <div class="row">
                   <div class="input-field col s12 m6 offset-m3">
@@ -118,27 +118,27 @@
                   </button>
                 </div>
               </div>
-            </div>
-            <div id="dc_return" class="hidden">
+            </div> -->
+            <div id="dc_entry_return" class="hidden">
               <div class="vertical-align">
                 <div class="row">
                   <div class="input-field col s12 m6 offset-m3">
-                    <input id="rBlanket" value="0" type="text" class="validate">
-                    <label for="rBlanket">No of Blankets</label>
+                    <input id="dcBlanket" value="0" type="text" class="validate">
+                    <label for="dcBlanket">No of Blankets</label>
                   </div>
                   <div class="input-field col s12 m6 offset-m3">
-                    <input id="rMattress" value="0" type="text" class="validate">
-                    <label for="rMattress">No of Mattresses</label>
+                    <input id="dcMattress" value="0" type="text" class="validate">
+                    <label for="dcMattress">No of Mattresses</label>
                   </div>
                   <div class="input-field col s12 m6 offset-m3">
-                    <input id="rPillow" value="0" type="text" class="validate">
-                    <label for="rPillow">No of Pillows</label>
+                    <input id="dcPillow" value="0" type="text" class="validate">
+                    <label for="dcPillow">No of Pillows</label>
                   </div>
                   <div class="input-field col s12 m6 offset-m3">
-                    <input id="rSpike" value="0" type="text" class="validate">
-                    <label for="rSpike">No of Spike Guards</label>
+                    <input id="dcSpike" value="0" type="text" class="validate">
+                    <label for="dcSpike">No of Spike Guards</label>
                   </div>
-                  <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="returnSubmit">Submit
+                  <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="dcSubmit">Submit
                     <i class="material-icons right">send</i>
                   </button>
                 </div>
@@ -176,7 +176,7 @@
             <div class="vertical-align">
               <h3 class="dc-name center-align" id="dcName"></h3>
               <div class="row">
-                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tnewEntryButton"><i class="material-icons left">mode_edit</i>New Entry</a>
+                <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="tentryButton"><i class="material-icons left">mode_edit</i>New Entry</a>
               </div>
               <div class="row">
                 <a class="waves-effect waves-light btn-large col s12 m6 offset-m3" id="treturnButton"><i class="material-icons left">assignment_return</i>Return</a>
@@ -188,9 +188,10 @@
           </div>
           <div id="tenderS2" class="hidden">
             <div class="vertical-align">
+              <br>
               <div class="row">
                 <div class="input-field col s12 m6 offset-m3">
-                  <select>
+                  <select id="tlocation">
                     <option value="" disabled selected>Choose a location</option>
                     <option value="SAC">SAC</option>
                     <option value="RAM Common Room">RAM Common Room</option>
@@ -206,7 +207,70 @@
                   <label for="tremarks">Comments/Remarks</label>
                 </div>
               </div>
-              
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tBlanket" value="0" type="text" class="validate">
+                  <label for="tBlanket">No of Blankets</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tMattress" value="0" type="text" class="validate">
+                  <label for="tMattress">No of Mattresses</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tPillow" value="0" type="text" class="validate">
+                  <label for="tPillow">No of Pillows</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tSpike" value="0" type="text" class="validate">
+                  <label for="tSpike">No of Spike Guards</label>
+                </div>
+                <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="tenderSubmit">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="tstatus" class="hidden">
+            <div class="vertical-align">
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <select>
+                    <option value="" disabled selected>Choose a location</option>
+                    <option value="SAC">SAC</option>
+                    <option value="RAM Common Room">RAM Common Room</option>
+                    <option value="BUDH Common Room">BUDH Common Room</option>
+                    <option value="GANDHI Common Room">GANDHI Common Room</option>
+                  </select>
+                  <label>Location</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <textarea id="tvremarks" class="materialize-textarea" disabled=""></textarea>
+                  <label for="tvremarks">Comments/Remarks</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tvBlanket" placeholder="" type="text" class="validate" disabled>
+                  <label for="tvBlanket">No of Blankets</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tvMattress" placeholder="" type="text" class="validate" disabled>
+                  <label for="tvMattress">No of Mattresses</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tvPillow" placeholder="" type="text" class="validate" disabled>
+                  <label for="tvPillow">No of Pillows</label>
+                </div>
+                <div class="input-field col s12 m6 offset-m3">
+                  <input id="tvSpike" placeholder="" type="text" class="validate" disabled>
+                  <label for="tvSpike">No of Spike Guards</label>
+                </div>
+                <button class="btn waves-effect waves-light col s4 offset-s8 m2 offset-m7" type="submit" name="action" id="tvBack">Back
+                  <i class="material-icons right">backspace</i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -315,16 +379,16 @@
   function retrieveDCDetails(uniqueCode) {
     var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
     active_DC.child('data').once('value',function(snapshot) {
-      $('.nBlanket').val(snapshot.val().blanket);
+      $('#vBlanket').val(snapshot.val().blanket);
     });
     active_DC.child('data').once('value',function(snapshot) {
-      $('.nMattress').val(snapshot.val().mattress);
+      $('#vMattress').val(snapshot.val().mattress);
     });
     active_DC.child('data').once('value',function(snapshot) {
-      $('.nPillow').val(snapshot.val().pillow);
+      $('#vPillow').val(snapshot.val().pillow);
     });
     active_DC.child('data').once('value',function(snapshot) {
-      $('.nSpike').val(snapshot.val().spike);
+      $('#vSpike').val(snapshot.val().spike);
       readyReturn = true;
     });
   }
@@ -333,10 +397,11 @@
     if (readyReturn===true) {
       console.log(readyReturn);
       var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
-      active_DC.child('data/blanket').set($('#nBlanket').val()-$('#rBlanket').val());
-      active_DC.child('data/mattress').set($('#nMattress').val()-$('#rMattress').val());
-      active_DC.child('data/pillow').set($('#nPillow').val()-$('#rPillow').val());
-      active_DC.child('data/spike').set($('#nSpike').val()-$('#rSpike').val());
+      active_DC.child('data/blanket').set(parseInt($('#vBlanket').val())-parseInt($('#dcBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#vMattress').val())-parseInt($('#dcMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#vPillow').val())-parseInt($('#dcPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#vSpike').val())-parseInt($('#dcSpike').val()));
+      readyReturn = false;
     }
     else{
       console.log(readyReturn);
@@ -346,13 +411,22 @@
     }
   }
 
-  function updateDCDetails(uniqueCode) {
-    var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
-    active_DC.child('data/blanket').set($('#nBlanket').val());
-    active_DC.child('data/mattress').set($('#nMattress').val());
-    active_DC.child('data/pillow').set($('#nPillow').val());
-    active_DC.child('data/spike').set($('#nSpike').val());
-    readyReturn = false;
+  function entryDC(uniqueCode) {
+    if (readyReturn===true) {
+      console.log(readyReturn);
+      var active_DC = firebase.database().ref('deptClub/'+uniqueCode);
+      active_DC.child('data/blanket').set(parseInt($('#vBlanket').val())+parseInt($('#dcBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#vMattress').val())+parseInt($('#dcMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#vPillow').val())+parseInt($('#dcPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#vSpike').val())+parseInt($('#dcSpike').val()));
+      readyReturn = false;
+    }
+    else{
+      console.log(readyReturn);
+      setTimeout(function () {
+        requestAnimationFrame(entryDC(uniqueCode));
+      },500)
+    }
   }
 
   function updateRevisionHistory(areaName, uniqueCode) {
@@ -445,6 +519,64 @@
     }
   }
 
+  function retrieveTenderDetails(location) {
+    var active_DC = firebase.database().ref('tender/'+location);
+    active_DC.child('remarks').once('value',function(snapshot) {
+      $('#tvremarks').val(snapshot.val());
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#tvBlanket').val(snapshot.val().blanket);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#tvMattress').val(snapshot.val().mattress);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#tvPillow').val(snapshot.val().pillow);
+    });
+    active_DC.child('data').once('value',function(snapshot) {
+      $('#tvSpike').val(snapshot.val().spike);
+      readyReturn = true;
+    });
+  }
+
+  function enterTender(tlocation) { 
+    if (readyReturn===true) {
+      console.log(readyReturn);
+      var active_DC = firebase.database().ref('tender/'+tlocation);
+      active_DC.child('remarks').set($('#tremarks').val());
+      active_DC.child('data/blanket').set(parseInt($('#tvBlanket').val())+parseInt($('#tBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#tvMattress').val())+parseInt($('#tMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#tvPillow').val())+parseInt($('#tPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#tvSpike').val())+parseInt($('#tSpike').val()));
+      readyReturn = false;
+    }
+    else{
+      console.log(readyReturn);
+      setTimeout(function () {
+        requestAnimationFrame(enterTender(tlocation));
+      },500)
+    }
+  }
+
+  function returnTender(tlocation) { 
+    if (readyReturn===true) {
+      console.log(readyReturn);
+      var active_DC = firebase.database().ref('tender/'+tlocation);
+      active_DC.child('remarks').set($('#tremarks').val());
+      active_DC.child('data/blanket').set(parseInt($('#tvBlanket').val())-parseInt($('#tBlanket').val()));
+      active_DC.child('data/mattress').set(parseInt($('#tvMattress').val())-parseInt($('#tMattress').val()));
+      active_DC.child('data/pillow').set(parseInt($('#tvPillow').val())-parseInt($('#tPillow').val()));
+      active_DC.child('data/spike').set(parseInt($('#tvSpike').val())-parseInt($('#tSpike').val()));
+      readyReturn = false;
+    }
+    else{
+      console.log(readyReturn);
+      setTimeout(function () {
+        requestAnimationFrame(returnTender(tlocation));
+      },500)
+    }
+  }
+
   function handleLogin(e){
     if(e.keyCode === 13){
        e.preventDefault(); // Ensure it is only this code that rusn
@@ -477,36 +609,47 @@
     $('#deptClub').fadeIn();
   })
 
-  $('#newEntryButton').click(function() {
+  var actionType;
+
+  $('#dcEntryButton').click(function() {
     $('#dcS2').fadeOut();
     retrieveDCDetails(uniqueCode);
     $('#dcS3').show();
-    $('#dc_entry').show();
+    $('#dc_entry_return').show();
+    actionType = "dc_entry";
   })
 
-  $('#newEntrySubmit').click(function() {
+  $('#dcSubmit').click(function() {
     $('#dcS3').fadeOut();
-    $('#dc_entry').fadeOut();
-    updateDCDetails(uniqueCode);
-    updateRevisionHistory('deptClub', uniqueCode);
+    $('#dc_entry_return').fadeOut();
+    retrieveDCDetails(uniqueCode);
+    if (actionType == "dc_entry") {
+      entryDC(uniqueCode);
+      updateRevisionHistory('deptClub', uniqueCode);
+    }
+    else if (actionType == "dc_return"){
+      returnDC(uniqueCode);
+      updateRevisionHistory('deptClub', uniqueCode);
+    }
     $('#dcS2').show();
   })
 
-  $('#returnButton').click(function() {
+  $('#dcreturnButton').click(function() {
     $('#dcS2').fadeOut();
     retrieveDCDetails(uniqueCode);
     $('#dcS3').show();
-    $('#dc_return').show();
+    $('#dc_entry_return').show();
+    actionType = "dc_return";
   })
 
-  $('#returnSubmit').click(function() {
-    $('#dcS3').fadeOut();
-    $('#dc_return').fadeOut();
-    retrieveDCDetails(uniqueCode);
-    returnDC(uniqueCode);
-    updateRevisionHistory('deptClub', uniqueCode);
-    $('#dcS2').show();
-  })
+  // $('#returnSubmit').click(function() {
+  //   $('#dcS3').fadeOut();
+  //   $('#dc_return').fadeOut();
+  //   retrieveDCDetails(uniqueCode);
+  //   returnDC(uniqueCode);
+  //   updateRevisionHistory('deptClub', uniqueCode);
+  //   $('#dcS2').show();
+  // })
 
   $('#viewButton').click(function() {
     $('#dcS2').fadeOut();
@@ -519,6 +662,54 @@
     $('#dc_view').fadeOut();
     $('#dcS3').fadeOut();
     $('#dcS2').show();
+  })
+
+  $('#tenderButton').click(function () {
+    $('#plsSelect').hide();
+    $('#tenderDC').show();
+    $('#tenderS1').fadeIn();
+  })
+
+  $('#tentryButton').click(function () {
+    $('#tenderS1').hide();
+    $('#tenderS2').show();
+    actionType = "tender_entry";
+  })
+
+  $('#treturnButton').click(function () {
+    $('#tenderS1').hide();
+    $('#tenderS2').show();
+    actionType = "tender_return";
+  })
+
+  var tlocation = "location";
+
+  $('#tlocation').change(function () {
+    tlocation = $('#tlocation option:selected').text();
+    retrieveTenderDetails(tlocation);
+  })
+
+  $('#tenderSubmit').click(function () {
+    if (actionType=="tender_entry") {
+      enterTender(tlocation);
+    }
+    else if (actionType=="tender_return") {
+      returnTender(tlocation);
+    }
+    $('#tenderS2').hide();
+    $('#tlocation').prop('selectedIndex',0);
+    $('#tlocation').val('')
+    $('#tremarks').val('');
+    $('#tBlanket').val(0);
+    $('#tPillow').val(0);
+    $('#tMattress').val(0);
+    $('#tSpike').val(0);
+    $('#tenderS1').fadeIn();
+  })
+
+  $('#tviewButton').click(function () {
+    $('#tenderS1').hide();
+    $('#tstatus').show();
   })
 
 </script>
